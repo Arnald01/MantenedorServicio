@@ -1,0 +1,89 @@
+<!--
+  Generated template for the ModificarServicioPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="danger">
+    <ion-title>Modificar Servicio</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-card color="dark">
+        <ion-card-header text-center>
+          Modifique el Servicio
+        </ion-card-header>
+        <ion-list>
+          <form [formGroup]="FservicioModif" (ngSubmit)="UpdateServicio(FservicioModif)">
+            <!--TIPO DE SERVICIO-->
+             <ion-item color="light">
+                <ion-label floating >Tipo de servicio</ion-label>
+                <ion-input type="text"  formControlName="TipoServicio" name = "TipoServicio" id="TipoServicio"></ion-input>
+             </ion-item> 
+             <!--VALIDACION TIPO DE SERVICIO--> 
+             <ion-item color="light" *ngIf="FservicioModif.get('TipoServicio').errors && FservicioModif.get('TipoServicio').dirty"> 
+                <p color="danger" ion-text *ngIf="FservicioModif.get('TipoServicio').hasError('required')">
+                  Campo Requerido!..
+                </p>
+                <p color="danger" ion-text *ngIf="FservicioModif.get('TipoServicio').hasError('maxlength')">
+                  Solo se permiten hasta 30 caracteres..!
+                </p>
+              </ion-item>
+            <!--NOMBRE DEL SERVICIO-->
+              <ion-item color="light">
+                  <ion-label floating >Nombre del Servicio</ion-label>
+                  <ion-input type="text"  formControlName="Nombre" name = "Nombre" id="Nombre"></ion-input>
+              </ion-item>
+            <!--VALIDACION NOMBRE DEL SERVICIO-->  
+              <ion-item color="light" *ngIf="FservicioModif.get('Nombre').errors && FservicioModif.get('Nombre').dirty"> 
+                  <p color="danger" ion-text *ngIf="FservicioModif.get('Nombre').hasError('required')">
+                    Campo Requerido!..
+                  </p>
+                  <p color="danger" ion-text *ngIf="FservicioModif.get('Nombre').hasError('maxlength')">
+                    Solo se permiten hasta 30 caracteres..!
+                  </p>
+                  <p color="danger" ion-text *ngIf="FservicioModif.get('Nombre').hasError('valorUnico')">
+                      Este nombre de servicio ya existe!..
+                  </p>
+              </ion-item>
+            <!--DESCRIPCION DEL SERVICIO-->
+              <ion-item color="light">
+                  <ion-label floating >Descripcion del Servicio</ion-label>
+                  <ion-textarea type="text" formControlName="Descripcion" name = "Descripcion" id="Descripcion"></ion-textarea>
+              </ion-item>
+            <!--VALIDACION DESCRIPCION-->   
+               <ion-item color=light *ngIf="FservicioModif.get('Descripcion').errors && FservicioModif.get('Descripcion').dirty">
+                  <p color="danger" ion-text *ngIf="FservicioModif.get('Descripcion').hasError('maxlength')">
+                    Maximo 300 Caracteres!..
+                  </p>
+               </ion-item>
+            <!--PRECIO--> 
+              <ion-item color="light">
+                  <ion-label floating >Precio</ion-label>
+                  <ion-input type="text" formControlName="Precio" name = "Precio" id="Precio"></ion-input>
+                </ion-item>
+            <!--VALIDACION PRECIO-->   
+              <ion-item color="light" *ngIf="FservicioModif.get('Precio').errors && FservicioModif.get('Precio').dirty"> 
+                  <p color="danger" ion-text *ngIf="FservicioModif.get('Precio').hasError('required')">
+                    Campo Requerido!..
+                  </p>
+                  <p color="danger" ion-text *ngIf="FservicioModif.get('Precio').hasError('pattern') && !FservicioModif.get('Precio').hasError('required')">
+                    Solo se permiten numeros!..
+                  </p>
+                  <p color="danger" ion-text *ngIf="FservicioModif.get('Precio').hasError('maxlength') && !FservicioModif.get('Precio').hasError('required')">
+                    Valor maximo Excedido!..
+                  </p>
+              </ion-item>
+            <!---->
+            <ion-item text-center color="dark">
+              <button ion-button type="submit" color="danger" round [disabled]="!FservicioModif.valid">Actualizar Servicio</button>
+            </ion-item> 
+          </form>
+        </ion-list>
+      </ion-card>
+</ion-content>

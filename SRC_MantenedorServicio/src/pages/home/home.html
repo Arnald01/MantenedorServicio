@@ -1,0 +1,118 @@
+<ion-header>
+
+  <ion-navbar color="danger">
+    <ion-title text-center>Gestion de Servicios</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding class="fondo">
+  <ion-card color="dark">
+    <ion-card-header text-center>
+      Agrege un Servicio
+    </ion-card-header>
+    <ion-list>
+      <form [formGroup]="FServicio" (ngSubmit)="IngresarServicio(FServicio)">
+          <!--TIPO DE SERVICIO-->
+         <ion-item color="light">
+            <ion-label floating >Tipo de servicio</ion-label>
+            <ion-input type="text"  formControlName="TipoServicio" name = "TipoServicio" id="TipoServicio"></ion-input>
+         </ion-item> 
+         <!--VALIDACION TIPO DE SERVICIO--> 
+         <ion-item color="light" *ngIf="FServicio.get('TipoServicio').errors && FServicio.get('TipoServicio').dirty"> 
+            <p color="danger" ion-text *ngIf="FServicio.get('TipoServicio').hasError('required')">
+              Campo Requerido!..
+            </p>
+            <p color="danger" ion-text *ngIf="FServicio.get('TipoServicio').hasError('maxlength')">
+              Solo se permiten hasta 30 caracteres..!
+            </p>
+          </ion-item>
+        <!--NOMBRE DEL SERVICIO-->
+          <ion-item color="light">
+              <ion-label floating >Nombre del Servicio</ion-label>
+              <ion-input type="text"  formControlName="Nombre" name = "Nombre" id="Nombre"></ion-input>
+          </ion-item>
+        <!--VALIDACION NOMBRE DEL SERVICIO-->  
+          <ion-item color="light" *ngIf="FServicio.get('Nombre').errors && FServicio.get('Nombre').dirty"> 
+              <p color="danger" ion-text *ngIf="FServicio.get('Nombre').hasError('required')">
+                Campo Requerido!..
+              </p>
+              <p color="danger" ion-text *ngIf="FServicio.get('Nombre').hasError('maxlength')">
+                Solo se permiten hasta 30 caracteres..!
+              </p>
+              <p color="danger" ion-text *ngIf="FServicio.get('Nombre').hasError('valorUnico')">
+                  Este nombre de servicio ya existe!..
+              </p>
+          </ion-item>
+        <!--DURACION DEL SERVICIO-->  
+          <ion-item color="light">
+            <ion-label floating >Duracion Estimada del Servicio</ion-label>
+            <ion-datetime hourValues="00,01,02,03,04,05" displayFormat="HH:mm" formControlName="Tiempo"></ion-datetime>
+          </ion-item>
+        <!--DESCRIPCION DEL SERVICIO-->
+          <ion-item color="light">
+              <ion-label floating >Descripcion del Servicio</ion-label>
+              <ion-textarea type="text" formControlName="Descripcion" name = "Descripcion" id="Descripcion"></ion-textarea>
+          </ion-item>
+        <!--VALIDACION DESCRIPCION-->   
+           <ion-item color=light *ngIf="FServicio.get('Descripcion').errors && FServicio.get('Descripcion').dirty">
+              <p color="danger" ion-text *ngIf="FServicio.get('Descripcion').hasError('maxlength')">
+                Maximo 300 Caracteres!..
+              </p>
+           </ion-item>
+        <!--PRECIO--> 
+          <ion-item color="light">
+              <ion-label floating >Precio</ion-label>
+              <ion-input type="text" formControlName="Precio" name = "Precio" id="Precio"></ion-input>
+            </ion-item>
+        <!--VALIDACION PRECIO-->   
+          <ion-item color="light" *ngIf="FServicio.get('Precio').errors && FServicio.get('Precio').dirty"> 
+              <p color="danger" ion-text *ngIf="FServicio.get('Precio').hasError('required')">
+                Campo Requerido!..
+              </p>
+              <p color="danger" ion-text *ngIf="FServicio.get('Precio').hasError('pattern') && !FServicio.get('Precio').hasError('required')">
+                Solo se permiten numeros!..
+              </p>
+              <p color="danger" ion-text *ngIf="FServicio.get('Precio').hasError('maxlength') && !FServicio.get('Precio').hasError('required')">
+                Valor maximo Excedido!..
+              </p>
+          </ion-item>
+        <!---->
+        <ion-item text-center color="dark">
+          <button ion-button type="submit" color="danger" round [disabled]="!FServicio.valid">Ingresar Servicio</button>
+        </ion-item> 
+      </form>
+    </ion-list>
+  </ion-card>
+
+  <ion-card color="dark">
+    <ion-card-header>
+      <ion-item color="dark" text-center>
+           <h2>Lista de Servicios</h2>
+          <ion-buttons item-end>
+            <button ion-button icon-only color="danger" (click)="(ListarServicios())">
+                <ion-icon name="open"></ion-icon>
+            </button>
+          </ion-buttons>
+        </ion-item>   
+    </ion-card-header>
+  </ion-card>
+  <ion-list>
+      <ion-item-sliding *ngFor="let servicio of servicios"  #item >
+        <a ion-item (click)="openModal(servicio)">
+            <h2>Nombre      : {{servicio.nombre}}</h2>        
+            <h2>Precio      : ${{servicio.precio}}</h2>
+        </a>    
+          <ion-item-options side="right">
+                <button ion-button (click)="Modificar(servicio)">Modificar</button>
+                <button ion-button color="danger" (click)="Eliminar(servicio.cod_servicio)">Eliminar</button>
+          </ion-item-options>
+        
+      </ion-item-sliding>  
+    </ion-list>
+ 
+
+</ion-content>
+<!--(click)="openModal(trabajador)"
+(click)="Modificar(trabajador)"
+(click)="Eliminar(trabajador.correo)"   -->

@@ -1,0 +1,18 @@
+<!--
+  Generated template for the PopModDuracionPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-card color="dark">
+  <ion-card-header  text-center>
+    Cambiar Duracion
+    <hr>
+  </ion-card-header>
+  <form [formGroup]="duracion" (ngSubmit)="UpdateDuracion(duracion)" text-center>
+    <ion-datetime hourValues="00,01,02,03,04,05" displayFormat="HH:mm" placeholder="click aqui para seleccionar" formControlName="Tiempo"></ion-datetime>
+    <button ion-button color="danger"> 
+      Aceptar
+    </button>
+  </form>
+</ion-card>
